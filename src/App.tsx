@@ -1,35 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import Ball from "./componens/Ball/Ball";
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+const generateRandomNumbers = (): number[] => {
+    const numbers: number[] = [];
+    while (numbers.length < 5) {
+        const num = Math.floor(Math.random() * 28) + 5;
+        if (!numbers.includes(num)) {
+            numbers.push(num);
+        }
+    }
+    return numbers.sort((a, b) => a - b);
+};
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+const App: React.FC = () => {
+    const defaultNumbers = [5, 11, 16, 23, 32];
+    const [numbers, setNumbers] = useState<number[]>(defaultNumbers);
 
-export default App
+    const handleNewNumbers = () => {
+        setNumbers(generateRandomNumbers());
+    };
+
+    return (
+        <div className="App">
+            <div className="numbers">
+                {numbers.map((num) => (
+                    <Ball key={num} number={num} />
+                ))}
+            </div>
+            <button className='app-btn' onClick={handleNewNumbers}>New numbers</button>
+        </div>
+    );
+};
+
+export  default App;

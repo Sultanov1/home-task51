@@ -1,0 +1,10 @@
+.container {
+    display: inline-block;
+}
+
+.random-number {
+    border: 2px solid #000;
+    border-radius: 50%;
+    padding: 15px 20px;
+    margin:  0 20px 50px 0 ;
+}
